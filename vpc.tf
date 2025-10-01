@@ -1,7 +1,7 @@
 //This is the code for vpc 
 
 resource "aws_vpc" "my-vpc" {
-  cidr_block           = "172.120.0.0/16" // class B 65k
+  cidr_block           = "172.120.0.0/16" 
   enable_dns_hostnames = true
   enable_dns_support   = true
   instance_tenancy     = "default"
@@ -9,8 +9,7 @@ resource "aws_vpc" "my-vpc" {
     Name       = "ntc-Vpc"
     env        = "Dev"
     app-name   = "ntc"
-    Team       = "wdp"
-    created_by = "serge"
+    owner      = "admin"
   }
 }
 
@@ -28,7 +27,7 @@ resource "aws_internet_gateway" "gw" {
 
 resource "aws_subnet" "public1" {
   vpc_id                  = aws_vpc.my-vpc.id
-  cidr_block              = "172.120.1.0/24" // class c  254 ips 
+  cidr_block              = "172.120.1.0/24" 
   availability_zone       = "us-east-1a"
   map_public_ip_on_launch = true
   tags = {
@@ -37,19 +36,19 @@ resource "aws_subnet" "public1" {
 }
 resource "aws_subnet" "public2" {
   vpc_id                  = aws_vpc.my-vpc.id
-  cidr_block              = "172.120.2.0/24" // class c  254 ips 
+  cidr_block              = "172.120.2.0/24"  
   availability_zone       = "us-east-1b"
   map_public_ip_on_launch = true
   tags = {
     Name = "ntc-public-sub2"
   }
-  depends_on = [aws_vpc.my-vpc] # dependancy 
+  depends_on = [aws_vpc.my-vpc] 
 }
 
 // subnet creation private
 resource "aws_subnet" "private1" {
   vpc_id            = aws_vpc.my-vpc.id
-  cidr_block        = "172.120.3.0/24" // class c  254 ips 
+  cidr_block        = "172.120.3.0/24" 
   availability_zone = "us-east-1a"
 
   tags = {
@@ -58,7 +57,7 @@ resource "aws_subnet" "private1" {
 }
 resource "aws_subnet" "private2" {
   vpc_id            = aws_vpc.my-vpc.id
-  cidr_block        = "172.120.4.0/24" // class c  254 ips 
+  cidr_block        = "172.120.4.0/24" 
   availability_zone = "us-east-1b"
 
   tags = {
